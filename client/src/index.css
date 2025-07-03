@@ -14,13 +14,13 @@
   }
 
   .course-details-heading-small {
-    font-size: 26px;
-    line-height: 36px;
+    font-size: 29px;
+    line-height: 39px;
   }
 
   .course-details-heading-large {
-    font-size: 36px;
-    line-height: 44px;
+    font-size: 50px;
+    line-height: 49px;
   }
 
   .text-default {
@@ -34,4 +34,7 @@
     gap: 16px;
   }
 
+}
+.section-height {
+  height: 500px;
 }
