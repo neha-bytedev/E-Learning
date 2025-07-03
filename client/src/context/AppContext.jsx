@@ -18,20 +18,24 @@ export const AppContextProvider =(props)=>{
     setAllCourses(dummyCourses)
   }
 
-  // function to Calculate average Rating of course
-  const calculateRating = (course)=>{
- if(!course?.courseRating || course.courseRating.length === 0)  return 0;
- 
- 
-  let totalRating = 0;
-  course.courseRating.forEach( (rating)=>{
-    totalRating +=rating.rating
-  })
-  return totalRating/ course.courseRating.length
-  }
   useEffect( ()=>{
    fetchAllCourses()
   },[])
+
+  // function to Calculate average Rating of course
+ const calculateRating = (course) => {
+  if (!course || !Array.isArray(course.courseRatings) || course.courseRatings.length === 0) {
+    return 0;
+  }
+
+  let totalRating = 0;
+  course.courseRatings.forEach((rating) => {
+    totalRating += rating.rating;
+  });
+
+  return totalRating / course.courseRatings.length;
+};
+  
    const value ={
     currency, allCourses, navigate, calculateRating,isEducator,setIsEducator
   

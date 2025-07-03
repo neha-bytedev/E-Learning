@@ -13,16 +13,14 @@ const CourseList = () => {
 
   useEffect ( ()=> {
     if (allCourses && allCourses.length >0){
-      const tempCourses =allCourses.slice()
+       const filtered = input
+      ? allCourses.filter((item) =>
+          item.courseTitle.toLowerCase().includes(input.toLowerCase())
+        )
+      : allCourses;
 
-      input ?
-     setFilteredCourses(
-      tempCourses.filter(
-        item => item.courseTitle.toLowerCase().includes(InputDeviceInfo.toLowerCase())
-      )
-     )
-      :setFilteredCourses(tempCourses)
-    }
+    setFilteredCourses(filtered);
+  }
   },[allCourses,input])
   return (
     <>
