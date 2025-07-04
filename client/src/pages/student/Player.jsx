@@ -19,7 +19,7 @@ const Player = () => {
       setCourseData(course);
     }
   });
-};
+}; 
 
    const toggleSection = (index) =>
     setOpenSections((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -93,7 +93,7 @@ const Player = () => {
                                           }
                                           className="text-blue-500 cursor-pointer"
                                         >
-                                          Preview
+                                         -
                                         </p>
                                       )}
                                       <p>
