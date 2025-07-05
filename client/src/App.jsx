@@ -1,6 +1,7 @@
 import { useMatch } from "react-router-dom"
 import Navbar from "./components/student/Navbar"
 import Router from "./Router"
+import "quill/dist/quill.snow.css";
 
 
 
