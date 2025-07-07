@@ -5,15 +5,18 @@ import User from "../models/User.js";
 
 export const clerkWebhooks = async (req, res)=>{
   try {
-    const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET)
+ const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
-    await whook.verify(JSON.stringify(req.body),{
-      "svix-id": req.headers["svix-id"],
-      "svix-timestamp":req.headers["svix-timestamp"],
-      "svix-signature": req.headers["svix-signature"]
-    })
-    
-   const {data, type} = req.body
+// Step 1: Signature verify on raw body
+whook.verify(req.body, {
+  "svix-id": req.headers["svix-id"],
+  "svix-timestamp": req.headers["svix-timestamp"],
+  "svix-signature": req.headers["svix-signature"]
+});
+
+// Step 2: Parse raw body to JSON
+const { data, type } = JSON.parse(req.body.toString("utf8"));
+
    
    switch (type) {
     case 'user.created':{

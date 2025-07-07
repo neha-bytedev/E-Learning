@@ -12,7 +12,9 @@ const userSchema = new mongoose.Schema(
         ref: 'Course'
       }
     ],
-   }, {timestamps: true });
+   }, {timestamps: true,
+       _id: false  // ✅ Prevent Mongoose from adding default _id ObjectId
+    });
 
    const User = mongoose.model('User',userSchema);
 
