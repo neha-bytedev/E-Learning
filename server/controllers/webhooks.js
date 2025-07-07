@@ -17,16 +17,20 @@ whook.verify(req.body, {
 // Step 2: Parse raw body to JSON
 const { data, type } = JSON.parse(req.body.toString("utf8"));
 
+ 
    
    switch (type) {
-    case 'user.created':{
+    case "user.created":{
       const userData = {
         _id: data.id,
         email: data.email_addresses[0].email_address,
         name: data.first_name + " " + data.last_name,
         imageUrl: data.image_url,
-      }
-      await User.create(userData)
+      };
+     
+
+      await User.create(userData);
+      
       res.json({})
       break;
     }
@@ -52,6 +56,8 @@ const { data, type } = JSON.parse(req.body.toString("utf8"));
    }
 
   } catch (error) {
-     res.json({success: false, message: error.message})
+    
+    return res.status(400).json({ success: false, message: error.message });
+     
   }
 }
