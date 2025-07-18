@@ -18,7 +18,7 @@ app.use(clerkMiddleware())
 
 //Routes
 app.get ('/',(req,res)=> res.send("API Working"))
-app.post('/clerk', express.raw({ type: 'application/json' }), clerkWebhooks) // ✅ sahi
+
 app.use('/api/educator',express.json(),educatorRouter)
 
 
