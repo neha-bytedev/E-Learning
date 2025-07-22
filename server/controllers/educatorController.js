@@ -9,7 +9,7 @@ export const updateRoleToEducator = async (req,res)=>{
         role: 'educator',
       }
     })
-    resizeBy.json({success:true, message:'You can publish a new course now'})
+    res.json({success:true, message:'You can publish a new course now'})
   } catch (error) {
      res.json({success:false,message:error.message})
   }
