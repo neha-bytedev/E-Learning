@@ -4,11 +4,16 @@ import { dummyCourses } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import {useAuth, useUser} from "@clerk/clerk-react"
 import humanizeDuration from 'humanize-duration'
+import axios from 'axios'
+import { toast } from "react-toastify";
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const AppContext = createContext()
 
 
+
 export const AppContextProvider =(props)=>{
+ const backendUrl = import.meta.env.VITE_BACKEND_URL
  const currency = import.meta.env.VITE_CURRENCY
  const navigate =useNavigate()
  const {getToken} = useAuth()
@@ -16,12 +21,38 @@ export const AppContextProvider =(props)=>{
  const [allCourses,setAllCourses] = useState([])
  const [isEducator,setIsEducator] = useState(true)
  const [enrolledCourses,setEnrolledCourses] = useState([])
+ const [userData, setUserData] = useState(null)
 
   // fetch all course
  
   const fetchAllCourses = async()=>{
-    setAllCourses(dummyCourses)
+    try {
+      const {data}= await axios.get (backendUrl + '/api/course/all')
+      if (data.success) {
+        setAllCourses(data.courses)
+      } else {
+        toast.error(data.messsage)
+      }
+    } catch (error) {
+      toast.error(error.messsage)
+    }
   }
+
+  // Fetch User Data
+  const fetchUserData = async ()=>{
+    try {
+      const token = await getToken()
+      const {data}= await axios.get(backendUrl + '/api/user/data',{headers:{Authorization: `Bearer ${token}`}})
+      if (data.success) {
+        setUserData(data.user)
+      } else {
+        toast.error(data.messsage)
+      }
+    } catch (error) {
+      toast.error(error.messsage)
+    }
+  }
+
  // function to Calculate average Rating of course
  const calculateRating = (course) => {
   if (!course || !Array.isArray(course.courseRatings) || course.courseRatings.length === 0) {
