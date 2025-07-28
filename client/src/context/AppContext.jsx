@@ -21,38 +21,13 @@ export const AppContextProvider =(props)=>{
  const [allCourses,setAllCourses] = useState([])
  const [isEducator,setIsEducator] = useState(true)
  const [enrolledCourses,setEnrolledCourses] = useState([])
- const [userData, setUserData] = useState(null)
+
 
   // fetch all course
  
-  const fetchAllCourses = async()=>{
-    try {
-      const {data}= await axios.get (backendUrl + '/api/course/all')
-      if (data.success) {
-        setAllCourses(data.courses)
-      } else {
-        toast.error(data.messsage)
-      }
-    } catch (error) {
-      toast.error(error.messsage)
-    }
+ const fetchAllCourses = async()=>{
+    setAllCourses(dummyCourses)
   }
-
-  // Fetch User Data
-  const fetchUserData = async ()=>{
-    try {
-      const token = await getToken()
-      const {data}= await axios.get(backendUrl + '/api/user/data',{headers:{Authorization: `Bearer ${token}`}})
-      if (data.success) {
-        setUserData(data.user)
-      } else {
-        toast.error(data.messsage)
-      }
-    } catch (error) {
-      toast.error(error.messsage)
-    }
-  }
-
  // function to Calculate average Rating of course
  const calculateRating = (course) => {
   if (!course || !Array.isArray(course.courseRatings) || course.courseRatings.length === 0) {
